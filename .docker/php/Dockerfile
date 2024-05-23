@@ -12,10 +12,11 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     zip \
-    unzip
+    unzip \
+    libicu-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip opcache
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip opcache intl
 RUN curl -sLS https://deb.nodesource.com/setup_21.x | bash - && \
       apt-get install -y nodejs && \
       npm install -g npm
