@@ -1,0 +1,54 @@
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: .docker/php/Dockerfile
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html/
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html/
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+  node:
+    image: node:21.7.1-bullseye-slim
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - "5173:5173"
+    command: bash -c "npm install && npm run dev"
+
+  mariadb:
+    env_file:
+      - .env
+    restart: unless-stopped
+    image: mariadb:11.3
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    ports:
+      - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+      - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+
+volumes:
+  mariadb_data:
+    driver: local
