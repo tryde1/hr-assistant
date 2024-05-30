@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PositionNameResource\Pages;
 use App\Filament\Resources\PositionNameResource\RelationManagers;
+use App\Filament\Resources\PositionNameResource\RelationManagers\PositionsRelationManager;
 use App\Models\PositionName;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -66,7 +67,7 @@ class PositionNameResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PositionsRelationManager::class
         ];
     }
 
