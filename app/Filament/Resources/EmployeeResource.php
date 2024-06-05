@@ -60,12 +60,16 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('ФИО'),
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable()
                     ->label('Почта'),
                 Tables\Columns\TextColumn::make('passport_series')
+                    ->searchable()
                     ->label('Серия паспорта'),
                 Tables\Columns\TextColumn::make('passport_number')
+                    ->searchable()
                     ->label('Номер паспорта'),
             ])
             ->filters([

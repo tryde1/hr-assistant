@@ -47,8 +47,10 @@ class PositionNameResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->label('Наименование'),
                 Tables\Columns\TextColumn::make('salary')
+                    ->sortable()
                     ->label('Зарплата (₽)'),
             ])
             ->filters([

@@ -59,10 +59,10 @@ class PositionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('employee.name')
-                    ->sortable()
                     ->searchable()
                     ->label('Сотрудник'),
                 TextColumn::make('positionName.name')
+                    ->searchable()
                     ->label('Должность'),
                 TextColumn::make('employment_date')
                     ->label('Дата принятия')
