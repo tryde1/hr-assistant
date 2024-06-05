@@ -48,6 +48,7 @@ class PositionResource extends Resource
                     ->required(),
                 DatePicker::make('employment_date')
                     ->label('Дата принятия')
+                    ->default(now())
                     ->required(),
                 DatePicker::make('dismissal_date')
                     ->label('Дата увольнения')
