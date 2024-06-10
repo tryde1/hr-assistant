@@ -46,6 +46,12 @@ class PositionResource extends Resource
                     ->searchable(['name'])
                     ->preload()
                     ->required(),
+                Select::make('division_id')
+                    ->label('Подразделение')
+                    ->relationship('division', 'name')
+                    ->searchable(['name'])
+                    ->preload()
+                    ->required(),
                 DatePicker::make('employment_date')
                     ->label('Дата принятия')
                     ->default(now())
@@ -65,6 +71,9 @@ class PositionResource extends Resource
                 TextColumn::make('positionName.name')
                     ->searchable()
                     ->label('Должность'),
+                TextColumn::make('division.name')
+                    ->searchable()
+                    ->label('Подразделение'),
                 TextColumn::make('employment_date')
                     ->label('Дата принятия')
                     ->date('d.m.Y'),

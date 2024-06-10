@@ -6,18 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Employee extends Model
+class Division extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'passport_series',
-        'passport_number',
-        'achievement_list',
-        'characteristic',
-        'experience',
+        'division_name',
     ];
 
     public function positions(): HasMany

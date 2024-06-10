@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PositionNameResource\RelationManagers;
+namespace App\Filament\Resources\EmployeeResource\RelationManagers;
 
 use App\Models\Employee;
 use Filament\Forms\Components\DatePicker;
@@ -23,17 +23,17 @@ class PositionsRelationManager extends RelationManager
     {
         return $form
             ->schema([
+                Select::make('position_name_id')
+                    ->label('Должность')
+                    ->relationship('positionName', 'name')
+                    ->searchable(['name'])
+                    ->preload()
+                    ->required(),
                 Select::make('employee_id')
                     ->label('Сотрудник')
                     ->relationship('employee', 'name')
                     ->searchable(['name', 'passport_series', 'passport_number'])
                     ->getOptionLabelFromRecordUsing(fn (Employee $employee) => "{$employee->name} ({$employee->passport_series} {$employee->passport_number})")
-                    ->preload()
-                    ->required(),
-                Select::make('division_id')
-                    ->label('Подразделение')
-                    ->relationship('division', 'name')
-                    ->searchable(['name'])
                     ->preload()
                     ->required(),
                 DatePicker::make('employment_date')
@@ -50,12 +50,13 @@ class PositionsRelationManager extends RelationManager
         return $table
             ->heading('Должности')
             ->columns([
-                Tables\Columns\TextColumn::make('employee.name')
+                Tables\Columns\TextColumn::make('positionName.name'),
+                TextColumn::make('positionName.name')
+                    ->label('Должность'),
+                TextColumn::make('employee.name')
                     ->sortable()
                     ->searchable()
                     ->label('Сотрудник'),
-                TextColumn::make('division.name')
-                    ->label('Подразделение'),
                 TextColumn::make('employment_date')
                     ->label('Дата принятия')
                     ->date('d.m.Y'),

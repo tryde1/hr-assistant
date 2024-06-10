@@ -52,6 +52,12 @@ class EmployeeResource extends Resource
                     ->label('Послужной список'),
                 Forms\Components\RichEditor::make('characteristic')
                     ->label('Характеристика'),
+                Forms\Components\TextInput::make('experience')
+                    ->name('Стаж (лет)')
+                    ->numeric()
+                    ->minValue(0)
+                    ->inputMode('decimal')
+                    ->required(),
             ]);
     }
 
@@ -71,6 +77,9 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('passport_number')
                     ->searchable()
                     ->label('Номер паспорта'),
+                Tables\Columns\TextColumn::make('experience')
+                    ->sortable()
+                    ->label('Стаж (лет)'),
             ])
             ->filters([
                 //

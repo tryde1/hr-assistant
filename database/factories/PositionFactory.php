@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Division;
 use App\Models\Employee;
 use App\Models\PositionName;
 use Carbon\Carbon;
@@ -27,6 +28,7 @@ class PositionFactory extends Factory
         return [
             'employee_id' => Employee::inRandomOrder()->first()->id,
             'position_name_id' => PositionName::inRandomOrder()->first()->id,
+            'division_id' => Division::inRandomOrder()->first()->id,
             'employment_date' => $employmentDate,
             'dismissal_date' => $dismissalDate > now() ? $dismissalDate : null,
         ];

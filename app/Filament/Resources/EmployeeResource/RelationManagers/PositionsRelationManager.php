@@ -28,6 +28,12 @@ class PositionsRelationManager extends RelationManager
                     ->searchable(['name'])
                     ->preload()
                     ->required(),
+                Select::make('division_id')
+                    ->label('Подразделение')
+                    ->relationship('division', 'name')
+                    ->searchable(['name'])
+                    ->preload()
+                    ->required(),
                 DatePicker::make('employment_date')
                     ->label('Дата принятия')
                     ->default(now())
@@ -45,6 +51,8 @@ class PositionsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('positionName.name'),
                 TextColumn::make('positionName.name')
                     ->label('Должность'),
+                TextColumn::make('division.name')
+                    ->label('Подразделение'),
                 TextColumn::make('employment_date')
                     ->label('Дата принятия')
                     ->date('d.m.Y'),
