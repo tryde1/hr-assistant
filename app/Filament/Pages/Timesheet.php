@@ -5,14 +5,14 @@ namespace App\Filament\Pages;
 use App\Models\Employee;
 use Carbon\CarbonPeriod;
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use App\Models\Timesheet as TimesheetModel;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Collection;
 
-class Timesheet extends Page implements HasForms
+class Timesheet extends Page
 {
     protected static ?string $title = 'Табель';
 
@@ -28,7 +28,7 @@ class Timesheet extends Page implements HasForms
 
     public function __construct()
     {
-        $this->employees = Employee::with('timesheets')->get();
+        $this->employees = Employee::with('timesheets', 'awards')->get();
         $period = CarbonPeriod::create(now()->startOfMonth(), now()->endOfMonth());
         foreach ($period as $date) {
             $this->dates[] = $date;
@@ -62,7 +62,7 @@ class Timesheet extends Page implements HasForms
         return $checkboxes;
     }
 
-    public function submit()
+    public function submit(): void
     {
         $checkedEmployees = TimesheetModel::where('date', '=', now()->format('Y-m-d'))->pluck('employee_id')->toArray();
 
@@ -94,5 +94,19 @@ class Timesheet extends Page implements HasForms
             'employees' => $this->employees,
             'dates' => $this->dates
         ];
+    }
+
+    protected function getTableActions(): array
+    {
+        $actions = [];
+        $startOfMonth = now()->startOfMonth()->format('Y-m-d');
+        foreach ($this->employees as $employee) {
+            $actions[] = Action::make('award')
+                ->label($employee->awards->where('start_of_month', $startOfMonth)->first() ? '✓' : 'x')
+                ->url(route('filament.admin.pages.timesheet.award.toggle', $employee))
+                ->color($employee->awards->where('start_of_month', $startOfMonth)->first() ? 'success' : 'danger');
+        }
+
+        return $actions;
     }
 }
