@@ -23,4 +23,9 @@ class Employee extends Model
     {
         return $this->hasMany(Position::class);
     }
+
+    public function timesheets(): HasMany
+    {
+        return $this->hasMany(Timesheet::class);
+    }
 }
