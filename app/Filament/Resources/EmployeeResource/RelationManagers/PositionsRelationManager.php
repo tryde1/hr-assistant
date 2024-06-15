@@ -18,6 +18,8 @@ class PositionsRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Должности';
 
+    protected static ?string $title = 'Должности';
+
     public function form(Form $form): Form
     {
         return $form
@@ -40,7 +42,6 @@ class PositionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->heading('Должности')
             ->columns([
                 Tables\Columns\TextColumn::make('positionName.name'),
                 TextColumn::make('positionName.name')

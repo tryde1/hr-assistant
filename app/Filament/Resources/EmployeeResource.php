@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeResource\Pages;
-use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Filament\Resources\EmployeeResource\RelationManagers\PositionsRelationManager;
+use App\Filament\Resources\EmployeeResource\RelationManagers\VacationsRelationManager;
 use App\Models\Employee;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -90,6 +90,7 @@ class EmployeeResource extends Resource
     {
         return [
             PositionsRelationManager::class,
+            VacationsRelationManager::class,
         ];
     }
 
