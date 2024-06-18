@@ -26,7 +26,7 @@ return new class extends Migration
         });
 
         Schema::table('positions', static function (Blueprint $table) {
-            $table->string('acceptance_document');
+            $table->string('acceptance_document')->nullable();
             $table->string('dismissal_document')->nullable();
         });
     }

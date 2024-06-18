@@ -25,6 +25,7 @@ class EmployeeFactory extends Factory
             'passport_number' => fake()->numerify('######'),
             'achievement_list' => fake()->realText,
             'characteristic' => fake()->realText,
+            'experience' => fake()->numberBetween(1, 30),
         ];
     }
 }
