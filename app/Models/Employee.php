@@ -24,4 +24,19 @@ class Employee extends Model
     {
         return $this->hasMany(Position::class);
     }
+
+    public function timesheets(): HasMany
+    {
+        return $this->hasMany(Timesheet::class);
+    }
+
+    public function vacations(): HasMany
+    {
+        return $this->hasMany(Vacation::class);
+    }
+
+    public function awards(): HasMany
+    {
+        return $this->hasMany(Award::class);
+    }
 }

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             PositionNameSeeder::class,
             EmployeeSeeder::class,
             DivisionSeeder::class,
+            TimesheetSeeder::class,
             PositionSeeder::class,
         ]);
     }
