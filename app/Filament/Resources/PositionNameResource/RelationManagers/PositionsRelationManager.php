@@ -4,6 +4,7 @@ namespace App\Filament\Resources\PositionNameResource\RelationManagers;
 
 use App\Models\Employee;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -41,7 +42,13 @@ class PositionsRelationManager extends RelationManager
                     ->default(now())
                     ->required(),
                 DatePicker::make('dismissal_date')
-                    ->label('Дата увольнения')
+                    ->label('Дата увольнения'),
+                FileUpload::make('acceptance_document')
+                    ->label('Документ о принятии на работу')
+                    ->downloadable(true),
+                FileUpload::make('dismissal_document')
+                    ->label('Документ об увольнении с работы')
+                    ->downloadable(true),
             ]);
     }
 
@@ -62,6 +69,10 @@ class PositionsRelationManager extends RelationManager
                 TextColumn::make('dismissal_date')
                     ->label('Дата увольнения')
                     ->date('d.m.Y'),
+                TextColumn::make('acceptance_document')
+                    ->label('Документ о принятии на работу'),
+                TextColumn::make('dismissal_document')
+                    ->label('Документ об увольнении с работы'),
             ])
             ->filters([
                 //

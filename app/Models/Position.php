@@ -16,6 +16,8 @@ class Position extends Model
         'position_name_id',
         'employment_date',
         'dismissal_date',
+        'acceptance_document',
+        'dismissal_document',
     ];
 
     public function employee(): BelongsTo

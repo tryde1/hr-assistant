@@ -24,6 +24,11 @@ return new class extends Migration
         Schema::table('employees', static function (Blueprint $table) {
             $table->float('experience');
         });
+
+        Schema::table('positions', static function (Blueprint $table) {
+            $table->string('acceptance_document');
+            $table->string('dismissal_document')->nullable();
+        });
     }
 
     /**
